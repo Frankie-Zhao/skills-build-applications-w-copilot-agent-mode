@@ -44,6 +44,7 @@ Run the focused contract commands first, followed by the full-suite and build ch
 
 - Data-tier command: `npm run test:data --prefix octofit-tracker/backend` — data/schema or seed contract failures.
 - API command: `npm run test:api --prefix octofit-tracker/backend` — route/service contract failures.
+- The API contract tests verify activity creation against existing user/team IDs, team membership, leaderboard totals, and user-specific workout suggestions.
 - Frontend command: `npm test --prefix octofit-tracker/frontend` — presentation data, loading, empty, error, or accessibility failures.
 - Full backend command: `npm test --prefix octofit-tracker/backend` — passed, 9/9 tests, including the data and API contracts.
 - Backend build command: `npm run build --prefix octofit-tracker/backend` — passed; type-check failures indicate backend TypeScript errors.
