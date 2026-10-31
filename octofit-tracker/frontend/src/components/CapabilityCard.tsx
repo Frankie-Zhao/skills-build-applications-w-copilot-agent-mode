@@ -1,16 +1,16 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { getJson } from '../api/client.js';
 
 type Props<T> = {
   title: string;
   description: string;
   path: string;
+  getData: (path: string) => Promise<T>;
   emptyMessage: string;
   isEmpty: (data: T) => boolean;
   renderData: (data: T) => ReactNode;
 };
 
-export function CapabilityCard<T>({ title, description, path, emptyMessage, isEmpty, renderData }: Props<T>) {
+export function CapabilityCard<T>({ title, description, path, getData, emptyMessage, isEmpty, renderData }: Props<T>) {
   const [data, setData] = useState<T>();
   const [error, setError] = useState<string>();
 
@@ -18,13 +18,13 @@ export function CapabilityCard<T>({ title, description, path, emptyMessage, isEm
     let active = true;
     setData(undefined);
     setError(undefined);
-    void getJson<T>(path).then((result) => {
+    void getData(path).then((result) => {
       if (active) setData(result);
     }).catch((cause: unknown) => {
       if (active) setError(cause instanceof Error ? cause.message : 'Unexpected error');
     });
     return () => { active = false; };
-  }, [path]);
+  }, [getData, path]);
 
   return (
     <section className="card h-100">

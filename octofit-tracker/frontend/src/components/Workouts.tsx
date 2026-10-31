@@ -1,4 +1,5 @@
 import { CapabilityCard } from './CapabilityCard.js';
+import { getJson } from '../api/client.js';
 
 type Workout = { _id?: string; title: string; focus?: string; minutes?: number; difficulty?: string; reason?: string };
 type WorkoutResponse = { suggestions: Workout[] };
@@ -9,6 +10,7 @@ export default function Workouts() {
       title="Workout suggestions"
       description="Recommend workouts from activity patterns."
       path="/api/workouts/suggestions/mona%40example.com"
+      getData={getJson<WorkoutResponse>}
       emptyMessage="No workout suggestions yet."
       isEmpty={({ suggestions }) => suggestions.length === 0}
       renderData={({ suggestions }) => (

@@ -1,4 +1,5 @@
 import { CapabilityCard } from './CapabilityCard.js';
+import { getJson } from '../api/client.js';
 
 type Activity = { _id?: string; type: string; minutes: number; points: number };
 type ActivityResponse = { activities: Activity[] };
@@ -9,6 +10,7 @@ export default function Activities() {
       title="Activities"
       description="Track student activity minutes and points."
       path="/api/activities"
+      getData={getJson<ActivityResponse>}
       emptyMessage="No activities yet."
       isEmpty={({ activities }) => activities.length === 0}
       renderData={({ activities }) => (
