@@ -30,20 +30,23 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 Record your plan here before editing code.
 
-- Presentation tier decision:
-- Logic tier decision:
-- Data tier decision:
-- Activity tracking approach:
-- Team management approach:
-- Leaderboard approach:
-- Workout suggestions approach:
+- Presentation tier decision: Keep each page focused on presentation and reuse one accessible data-loading component plus the shared API client.
+- Logic tier decision: Keep validation and capability behavior in explicit service functions; routes only translate requests, responses, and errors.
+- Data tier decision: Enforce required fields and safe defaults in Mongoose schemas; preserve the idempotent, non-destructive seed behavior.
+- Activity tracking approach: Validate input and ObjectIds, require existing user/team records, and calculate points from submitted minutes.
+- Team management approach: Validate team fields and member IDs, then persist submitted members without replacing unrelated records.
+- Leaderboard approach: Sum persisted activity points per team, include teams without activity, and sort descending with deterministic ranks.
+- Workout suggestions approach: Find the user by email, prioritize workouts matching their goal and recent activity, and explain the recommendation.
 
 ## Test plan
 
-Record the commands you run and what each failure means.
+Run the focused contract commands first, followed by the full-suite and build checks when validating the complete implementation.
 
-- Data-tier command: `npm run test:data --prefix octofit-tracker/backend`
-- API command: `npm run test:api --prefix octofit-tracker/backend`
-- Frontend command: `npm test --prefix octofit-tracker/frontend`
-- Backend build command: `npm run build --prefix octofit-tracker/backend`
-- Frontend build command: `npm run build --prefix octofit-tracker/frontend`
+- Data-tier command: `npm run test:data --prefix octofit-tracker/backend` — data/schema or seed contract failures.
+- API command: `npm run test:api --prefix octofit-tracker/backend` — route/service contract failures.
+- The API contract tests verify activity creation against existing user/team IDs, team membership, leaderboard totals, and user-specific workout suggestions.
+- Frontend command: `npm test --prefix octofit-tracker/frontend` — presentation data, loading, empty, error, or accessibility failures.
+- Full backend command: `npm test --prefix octofit-tracker/backend` — passed, 9/9 tests, including the data and API contracts.
+- Backend build command: `npm run build --prefix octofit-tracker/backend` — passed; type-check failures indicate backend TypeScript errors.
+- Frontend build command: `npm run build --prefix octofit-tracker/frontend` — passed; type-check or Vite failures indicate frontend compile or production-bundle errors.
+- Frontend contract result: passed, 15/15 tests.
