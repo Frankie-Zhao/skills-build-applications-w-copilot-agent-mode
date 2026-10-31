@@ -40,9 +40,12 @@ Record your plan here before editing code.
 
 ## Test plan
 
-Record the commands you run and what each failure means.
+Run the focused contract commands first, followed by the full-suite and build checks when validating the complete implementation.
 
-- Backend contract command: `npm test --prefix octofit-tracker/backend` — passed, 9/9 tests. Data-tier failures indicate schema or seed contract regressions; API failures indicate route/service contract regressions.
-- Frontend command: `npm test --prefix octofit-tracker/frontend` — passed, 15/15 tests. Failures indicate presentation data, loading, empty, error, or accessibility regressions.
-- Backend build command: `npm run build --prefix octofit-tracker/backend` — passed. Type-check failures indicate backend TypeScript errors.
-- Frontend build command: `npm run build --prefix octofit-tracker/frontend` — passed. Type-check or Vite failures indicate frontend compile or production-bundle errors.
+- Data-tier command: `npm run test:data --prefix octofit-tracker/backend` — data/schema or seed contract failures.
+- API command: `npm run test:api --prefix octofit-tracker/backend` — route/service contract failures.
+- Frontend command: `npm test --prefix octofit-tracker/frontend` — presentation data, loading, empty, error, or accessibility failures.
+- Full backend command: `npm test --prefix octofit-tracker/backend` — passed, 9/9 tests, including the data and API contracts.
+- Backend build command: `npm run build --prefix octofit-tracker/backend` — passed; type-check failures indicate backend TypeScript errors.
+- Frontend build command: `npm run build --prefix octofit-tracker/frontend` — passed; type-check or Vite failures indicate frontend compile or production-bundle errors.
+- Frontend contract result: passed, 15/15 tests.
